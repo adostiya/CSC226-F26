@@ -11,13 +11,13 @@ public class Counter {
     // 3. Write the default constructor
     public Counter(){
         count = 0;
-        historyclass()
+        historyclass();
     }
 
     // 4. Add an alternate constructor
     public Counter(int count){
         this.count = count;
-        historyclass()
+        historyclass();
     }
     // 5. Write an accessor method
     public int getCount(){
@@ -27,27 +27,27 @@ public class Counter {
     // 6. Add an update method
     public void decreaseCount(){
         count--;
-        historyclass()
+        historyclass();
     }
     
     // 7. Overload increment
     public void increaseCount(){
         count++;
-        historyclass()
+        historyclass();
     }
     public void increaseCount(int num){
         count = count+num;
-        historyclass()
+        historyclass();
     }
     public void increaseCount(int num, int num2){
         count = count+num+num2;
-        historyclass()
+        historyclass();
     }
    
     // 8. Add a reset method
     public void resetCount(){
         count = 0;
-        historyclass()
+        historyclass();
     }
 
     //9. Add a fixed-size history array that records the last 5 states of the counter. All logic must happen inside of the object and be hidden from the user.
