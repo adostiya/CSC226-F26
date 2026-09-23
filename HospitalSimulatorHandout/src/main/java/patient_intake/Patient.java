@@ -1,7 +1,7 @@
 package patient_intake;
 
 public class Patient extends Person {
-    private String patientID;
+    private String patientID; 
     private String chiefComplaint;
     private int triageLevel;
     private String currentStage;
