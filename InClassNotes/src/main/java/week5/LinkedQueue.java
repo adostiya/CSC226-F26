@@ -3,24 +3,43 @@ package week5;
 public class LinkedQueue<T> implements QueueInterface<T> {
     private LLNode<T> front;
     private LLNode<T> rear;
+    public int numElements = 0;
 
     @Override
     public void enqueue(T element) {
-        throw new UnsupportedOperationException("Not implemented");
+        LLNode<T> newNode = new LLNode<>(element);
+        if (isEmpty())  {
+            front = newNode;
+            rear = newNode;
+        }
+        else {
+            rear.setNext(newNode);
+            rear = newNode;
+        }
+        numElements++;
     }
 
     @Override
     public T dequeue() {
-        throw new UnsupportedOperationException("Not implemented");
+        if (isEmpty()) {
+            return null;
+        }
+        T el = front.getInfo();
+        front = front.getNext();
+        if (front == null) {
+            rear = null;
+        }
+        numElements--;
+        return el;
     }
 
     @Override
     public boolean isFull() {
-        throw new UnsupportedOperationException("Not implemented");
+        return false; 
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not implemented");
+        return front==null;
     }
 }
