@@ -39,10 +39,69 @@ public class Main {
         TreatmentRecord undone = history.undoLastAction();
         System.out.println("Undid: " + undone);
         System.out.println("Remaining log: " + history.displayHistory());
+
+        // Optional
+        runSimulationMetrics();
     }
 
     private static Patient patient(String patientID, int triageLevel) {
         return new Patient(patientID, "Test", "Patient", 30, "Checkup", triageLevel,
                 "Waiting", "ER-001", 9, "INS-001");
+    }
+
+    private static Patient simPatient(String patientID, int triageLevel, int arrivalMinute, int serviceMinutes) {
+        Patient patient = new Patient(patientID, "Test", "Patient", 30, "Checkup", triageLevel,
+            "Waiting", "ER-001", arrivalMinute, "INS-001");
+        patient.setServiceMinutes(serviceMinutes);
+        return patient;
+}
+
+    private static void runSimulationMetrics() {
+        Patient[] schedule = {
+                simPatient("P001", 3, 0, 10),
+                simPatient("P002", 1, 2, 15),
+                simPatient("P003", 1, 3, 10),
+        };
+
+        EmergencyWaitingRoom room = new EmergencyWaitingRoom();
+
+        int clock = 0;
+        int totalWait = 0;
+        int served = 0;
+        int nextPatientID = 0;
+
+        while (nextPatientID < schedule.length || !room.isEmpty()) {
+
+            while (nextPatientID < schedule.length && schedule[nextPatientID].getArrivalHour() <= clock) {
+                room.addPatient(schedule[nextPatientID]);
+                nextPatientID++;
+            }
+
+            if (room.isEmpty()) {
+                if (nextPatientID < schedule.length) {
+                    clock = schedule[nextPatientID].getArrivalHour();
+                }
+                continue;
+            }
+
+            Patient patient = room.nextPatient();
+            int wait = clock - patient.getArrivalHour();
+            int service = patient.getServiceMinutes();
+            if (wait < 0 || service < 0) {
+                System.out.println("Invalid");
+                return;
+            }
+            totalWait += wait;
+            served++;
+
+            clock += service;
+        }
+
+        if (served > 0) {
+            double averageWait = (double) totalWait / served;
+            System.out.println("Average waiting time: " + averageWait);
+        } else {
+            System.out.println("No patients was served");
+        }
     }
 }

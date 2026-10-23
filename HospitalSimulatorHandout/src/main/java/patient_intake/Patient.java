@@ -8,6 +8,7 @@ public class Patient extends Person {
     private String assignedRoom;
     private int arrivalHour;
     private String insuranceID;
+    private int serviceMinutes = 0;
 
     public Patient(String patientID, String firstName, String lastName, int age, 
                    String chiefComplaint, int triageLevel, String currentStage, 
@@ -64,6 +65,10 @@ public class Patient extends Person {
         return insuranceID; // TODO REQUIRED: Return the insurance ID.
     }
 
+    public int getServiceMinutes() {
+        return serviceMinutes;
+    }
+
     // Setters
     public void setPatientID(String patientID) {
         // TODO REQUIRED: Update the patient ID.
@@ -116,6 +121,12 @@ public class Patient extends Person {
     public void setInsuranceID(String insuranceID) {
         // TODO REQUIRED: Update the insurance ID.
         this.insuranceID = insuranceID;
+    }
+    
+    public void setServiceMinutes(int serviceMinutes) {
+        if (serviceMinutes >= 0) {
+            this.serviceMinutes = serviceMinutes;
+        }
     }
 
     @Override
